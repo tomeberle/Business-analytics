@@ -12,6 +12,8 @@
    of ALL the 10 reviews on the FIRST page of a particular restaurant
    '''
 
+#this is Patrick's comment
+
 import csv
 import requests
 from bs4 import BeautifulSoup
