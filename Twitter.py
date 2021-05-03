@@ -46,7 +46,7 @@ tweets_df1['Sentiment'] = tweets_df1['Text'].apply(sentiment)
 
 
 # Export as CSV
-tweets_df1.to_csv (r'C:\Users\patri\Desktop\HEC\5th Bimester\Business Analytics\cnbc.csv', encoding='utf-8-sig')
+tweets_df1.to_csv (r'C:\Users\patri\Desktop\HEC\5th Bimester\Business Analytics\twitter_sentiment.csv', encoding='utf-8-sig')
 
 
 #time seems not to be correct: two hours behind Paris time
