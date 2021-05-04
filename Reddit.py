@@ -27,15 +27,14 @@ def scrap_reddit(pagesToDo, thread):
         # Loop through posts
         print('Page n°: ' + str(pageNb))
         for post in soup.find_all('div', attrs=attrs):
+            # Identifying html items to scrape
             title = post.find('p', class_="title").text
             author = post.find('a', class_='author').text
             date = post.find('time')['datetime'][:10]
             _time = post.find('time')['datetime'][11:19]
-
             comments = post.find('a', class_='comments').text.split()[0]
             if comments == "comment":
                 comments = 0
-
             likes = post.find("div", attrs={"class": "score likes"}).text
             if likes == "•":
                 likes = "None"
@@ -47,12 +46,11 @@ def scrap_reddit(pagesToDo, thread):
             post_soup = BeautifulSoup(page.text, 'html.parser')
             content = post_soup.find(
                 'div', attrs={'class': 'expando'}).text
-            print(content)
 
-            post_line = [counter, date, _time,
-                         title, author, likes, comments, url]
-            print(post_line)
             # Writing post in CSV
+            post_line = [counter, date, _time,
+                         title, author, likes, comments, url, content]
+            print(post_line)
             # TODO: Add columns
             # TODO: Read csv file to compare
             with open('reddit_output.csv', 'a') as f:
