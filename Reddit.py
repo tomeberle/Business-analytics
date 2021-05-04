@@ -45,12 +45,14 @@ def scrap_reddit(pagesToDo, thread):
                 "https://old.reddit.com" + url, headers=headers)
             post_soup = BeautifulSoup(page.text, 'html.parser')
             content = post_soup.find(
-                'div', attrs={'class': 'expando'}).text
+                'div', attrs={'class': 'expando'}).text.strip()
+            content = content.replace('\n', ' ')  # Removes breaklines
+            content = " ".join(content.split())  # Cleaning unnecessary spaces
 
             # Writing post in CSV
             post_line = [counter, date, _time,
                          title, author, likes, comments, url, content]
-            print(post_line)
+            # print(post_line)
             # TODO: Add columns
             # TODO: Read csv file to compare
             with open('reddit_output.csv', 'a') as f:
@@ -69,6 +71,6 @@ def scrap_reddit(pagesToDo, thread):
 
 
 # Fonction parameters
-pagesToDo = 2
+pagesToDo = 1
 thread = "wallstreetbets"
 scrap_reddit(pagesToDo, thread)
