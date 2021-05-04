@@ -21,6 +21,8 @@ def scrap_reddit(pagesToDo, thread):
 
     counter = 1
     pageNb = 1
+
+    # Loop throuugh pages
     while (pageNb <= pagesToDo):
         # Loop through posts
         print('Page n°: ' + str(pageNb))
@@ -38,7 +40,17 @@ def scrap_reddit(pagesToDo, thread):
             if likes == "•":
                 likes = "None"
 
-            post_line = [counter, date, _time, title, author, likes, comments]
+            # Scrapping each post's content
+            url = post.find('a', attrs={'data-event-action': "title"})['href']
+            page = requests.get(
+                "https://old.reddit.com" + url, headers=headers)
+            post_soup = BeautifulSoup(page.text, 'html.parser')
+            content = post_soup.find(
+                'div', attrs={'class': 'expando'}).text
+            print(content)
+
+            post_line = [counter, date, _time,
+                         title, author, likes, comments, url]
             print(post_line)
             # Writing post in CSV
             # TODO: Add columns
@@ -59,6 +71,6 @@ def scrap_reddit(pagesToDo, thread):
 
 
 # Fonction parameters
-pagesToDo = 1
+pagesToDo = 2
 thread = "wallstreetbets"
 scrap_reddit(pagesToDo, thread)
