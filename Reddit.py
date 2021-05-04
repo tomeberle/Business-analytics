@@ -5,6 +5,8 @@ from bs4 import BeautifulSoup
 
 
 def scrap_reddit(pagesToDo, thread):
+    """ Scraping of reddit, changing page and fetching post content 
+    Data: counter, date, _time, title, author, likes, comments """
     # Using the old reddit as more simple
     url = "https://old.reddit.com/r/" + thread + "/"
 
@@ -25,6 +27,8 @@ def scrap_reddit(pagesToDo, thread):
         for post in soup.find_all('div', attrs=attrs):
             title = post.find('p', class_="title").text
             author = post.find('a', class_='author').text
+            date = post.find('time')['datetime'][:10]
+            _time = post.find('time')['datetime'][11:19]
 
             comments = post.find('a', class_='comments').text.split()[0]
             if comments == "comment":
@@ -34,10 +38,8 @@ def scrap_reddit(pagesToDo, thread):
             if likes == "•":
                 likes = "None"
 
-            print('Scrapping n' + str(counter) + ': ' + title)
-
-            post_line = [counter, title, author, likes, comments]
-
+            post_line = [counter, date, _time, title, author, likes, comments]
+            print(post_line)
             # Writing post in CSV
             # TODO: Add columns
             # TODO: Read csv file to compare
@@ -57,6 +59,6 @@ def scrap_reddit(pagesToDo, thread):
 
 
 # Fonction parameters
-pagesToDo = 3
+pagesToDo = 1
 thread = "wallstreetbets"
 scrap_reddit(pagesToDo, thread)
