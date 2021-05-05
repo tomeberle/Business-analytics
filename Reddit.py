@@ -68,9 +68,8 @@ def scrap_reddit(pagesToDo, thread):
         soup = BeautifulSoup(page.text, 'html.parser')
         pageNb += 1
 
-    # TODO: Add columns
     # Saving in CSV
-    with open('reddit_output.csv', 'w', newline='') as f:
+    with open('output/reddit_output.csv', 'w', newline='') as f:
         head = csv.DictWriter(f, fieldnames=["counter", "date", "_time",
                                              "title", "author", "likes", "comments", "url", "content"])
         head.writeheader()
