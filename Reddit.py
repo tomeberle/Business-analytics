@@ -6,7 +6,8 @@ from bs4 import BeautifulSoup
 
 def scrap_reddit(pagesToDo, thread):
     """ Scraping of reddit, changing page and fetching post content 
-    Data: counter, date, _time, title, author, likes, comments """
+    Returns: [[counter, date, _time, title, author, likes, comments], [...]]
+    """
     # Using the old reddit as more simple
     url = "https://old.reddit.com/r/" + thread + "/"
 
@@ -17,10 +18,12 @@ def scrap_reddit(pagesToDo, thread):
     page = requests.get(url, headers=headers)
     soup = BeautifulSoup(page.text, 'html.parser')
 
+    # Attribute to identify posts
     attrs = {'class': 'thing', 'data-domain': 'self.' + thread}
 
     counter = 1
     pageNb = 1
+    output = []
 
     # Loop throuugh pages
     while (pageNb <= pagesToDo):
@@ -52,12 +55,8 @@ def scrap_reddit(pagesToDo, thread):
             # Writing post in CSV
             post_line = [counter, date, _time,
                          title, author, likes, comments, url, content]
-            # print(post_line)
-            # TODO: Add columns
-            # TODO: Read csv file to compare
-            with open('reddit_output.csv', 'a') as f:
-                writer = csv.writer(f)
-                writer.writerow(post_line)
+
+            output.append(post_line)
 
             counter += 1
 
@@ -69,8 +68,20 @@ def scrap_reddit(pagesToDo, thread):
         soup = BeautifulSoup(page.text, 'html.parser')
         pageNb += 1
 
+    # TODO: Add columns
+    # Saving in CSV
+    with open('reddit_output.csv', 'w', newline='') as f:
+        head = csv.DictWriter(f, fieldnames=["counter", "date", "_time",
+                                             "title", "author", "likes", "comments", "url", "content"])
+        head.writeheader()
+        writer = csv.writer(f)
+        writer.writerows(output)
+
+    # Returning output
+    return output
+
 
 # Fonction parameters
 pagesToDo = 1
 thread = "wallstreetbets"
-scrap_reddit(pagesToDo, thread)
+content = scrap_reddit(pagesToDo, thread)
