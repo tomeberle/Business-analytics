@@ -1,7 +1,9 @@
 import requests
 import csv
 import time
+import datetime
 from bs4 import BeautifulSoup
+from Analysis import find_companies
 
 
 def scrap_reddit(pagesToDo, thread):
@@ -34,6 +36,7 @@ def scrap_reddit(pagesToDo, thread):
             title = post.find('p', class_="title").text
             author = post.find('a', class_='author').text
             date = post.find('time')['datetime'][:10]
+            # TODO: Add 2h (now UTC, move to GMT + 2)
             _time = post.find('time')['datetime'][11:19]
             comments = post.find('a', class_='comments').text.split()[0]
             if comments == "comment":
@@ -84,3 +87,4 @@ def scrap_reddit(pagesToDo, thread):
 pagesToDo = 1
 thread = "wallstreetbets"
 content = scrap_reddit(pagesToDo, thread)
+content = find_companies(content)
