@@ -6,6 +6,10 @@ content = []
 
 
 def load_csv(filename, subfolder):
+    """ Loads CSV easily
+    Input: filename, subfolder. E.g. assets/nasdaq.csv -->  filename='assets', subfolder='nasdaq.csv' 
+    Output: data
+    """
     with open(subfolder + '/' + filename + '.csv', newline='') as f:
         reader = csv.reader(f)
         data = list(reader)
@@ -18,13 +22,19 @@ def find_companies(content):
     Output: identical list with new 'company' column. 
     """
     nasdaq = load_csv(filename='nasdaq-listed_clean', subfolder='assets')
-    a = "This text is about a company called credit suisse company, is it working"
-    for company in nasdaq:
-        first_word = company[1].split()[0]
-        print(first_word)
+    test_string = "This text is about a company called credit suisse company and , of couse, is it working"
 
-        # TODO: for loop to check if company is in: title, content, etc.
-        # TODO: create new column with tickers
+    # TODO: for loop to check if company is in: title, content, etc.
+    for company in nasdaq:
+        match_name = test_string.find(company[1])
+        if match_name != -1:
+            print('Found company: ' + str(company))
+
+        match_symbol = test_string.find(company[0])
+        if match_symbol != -1:
+            print('Found company: ' + str(company))
+
+    # TODO: create new column with tickers
 
 
 content = load_csv(filename='reddit_output', subfolder='output')

@@ -7,7 +7,8 @@ from Analysis import find_companies
 
 
 def scrap_reddit(pagesToDo, thread):
-    """ Scraping of reddit, changing page and fetching post content 
+    """ Scraps reddit, changing page and fetching post content 
+    Input: pagesTodo (number of pages to scrape), thread (e.g. wallstreetbets)
     Returns: [[counter, date, _time, title, author, likes, comments], [...]]
     """
     # Using the old reddit as more simple
