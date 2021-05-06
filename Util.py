@@ -1,9 +1,9 @@
-from cleanco import prepare_terms, basename
+import re
 import csv
 
 
 def treat_companies(filename):
-    """ Cleans the CSV file with company names for better recognition in other functions. 
+    """ Cleans the CSV file with company names for better recognition in other functions.
     Example: Credit Suisse AG -> credit suisse
     """
     with open('assets/' + filename + '.csv', newline='') as f:
@@ -12,11 +12,15 @@ def treat_companies(filename):
 
     output = []
 
+    bad_words = ['inc', 'ag', 'inc.', 'sa', 'corp',
+                 'corporation', 'holding', 'plc', 'ltd', '.', ',']
+
     for company in nasdaq:
-        terms = prepare_terms()
         symbol = company[0]
-        name = basename(
-            company[1], terms, prefix=False, middle=False, suffix=True).lower()
+        name = [word for word in company[1].split() if word.lower()
+                not in bad_words]
+        name = ' '.join(name).lower()
+
         if name == '':
             name = full_name
         full_name = company[1]
