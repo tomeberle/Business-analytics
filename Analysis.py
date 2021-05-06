@@ -19,15 +19,15 @@ def find_companies(content):
     """
     nasdaq = load_csv(filename='nasdaq-listed', subfolder='assets')
 
-    # Loads CSV if no given input
-    if not len(content):
-        content = load_csv(filename='reddit_output', subfolder='output')
+    for company in nasdaq:
+        print(company[1])
+        terms = prepare_terms()
+        company[1] = basename(
+            company[1], terms, prefix=False, middle=False, suffix=True).lower()
+        print(company[1])
+        # TODO: for loop to check if company is in: title, content, etc.
+        # TODO: create new column with tickers
 
-    print(nasdaq)
-    print(content)
 
-    # TODO: for loop to check if company is in: title, content, etc.
-    # TODO: create new column with tickers
-
-
-find_companies(content='')
+content = load_csv(filename='reddit_output', subfolder='output')
+find_companies(content)
