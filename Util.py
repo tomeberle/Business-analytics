@@ -17,6 +17,8 @@ def treat_companies(filename):
         symbol = company[0]
         name = basename(
             company[1], terms, prefix=False, middle=False, suffix=True).lower()
+        if name == '':
+            name = full_name
         full_name = company[1]
         name_and_type = company[2]
 
