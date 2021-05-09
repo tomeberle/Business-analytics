@@ -5,11 +5,11 @@ import datetime
 
 # Creating list to append tweet data to
 tweets_list1 = []
+account_list = ['cnbc', 'WSJmarkets']
 # Using TwitterSearchScraper to scrape data and append tweets to list
-for tweet in sntwitter.TwitterSearchScraper('from:cnbc since:2021-05-01').get_items():
-    tweets_list1.append([tweet.date, tweet.id, tweet.content, tweet.username])
-for tweet in sntwitter.TwitterSearchScraper('from:WSJmarkets since:2021-05-01').get_items():
-    tweets_list1.append([tweet.date, tweet.id, tweet.content, tweet.username])
+for account in account_list:
+    for tweet in sntwitter.TwitterSearchScraper('from:' +account+ ' since:2021-05-01').get_items():
+        tweets_list1.append([tweet.date, tweet.id, tweet.content, tweet.username])
 
 # Creating a dataframe from the tweets list above & cleaning
 tweets_df1 = pd.DataFrame(tweets_list1, columns=[
@@ -32,7 +32,7 @@ tweets_df1 = tweets_df1.reindex(columns=column_names)
 
 # Sentiment Analysis
 
-SENTIMENT_CSV = "assets/word_sentiment.csv"
+SENTIMENT_CSV = "C:/Users/patri/Desktop/HEC/5th Bimester/Business Analytics/Session 2/Part 2/word_sentiment.csv"
 NEGATIVE_WORDS = ["not", "dont", "doesnt", "no", "arent", "isnt"]
 
 
@@ -61,5 +61,4 @@ def sentiment(sentence):
 tweets_df1['Sentiment'] = tweets_df1['Text'].apply(sentiment)
 
 # Export as CSV
-tweets_df1.to_csv(
-    r'output\twitter_sentiment.csv', encoding='utf-8-sig')
+tweets_df1.to_csv(r'C:\Users\patri\Desktop\HEC\5th Bimester\Business Analytics\twitter_sentiment.csv', encoding='utf-8-sig')
