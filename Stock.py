@@ -2,6 +2,9 @@
 # pip install matplotlib
 import yfinance as yf
 import matplotlib.pyplot as plt
+import pandas as pd
+from datetime import datetime
+import time
 
 
 def get_stock_data(ticker_list, start_date, end_date, interval):
@@ -26,6 +29,37 @@ def get_stock_data(ticker_list, start_date, end_date, interval):
     plt.show()
 
 
+def get_stock_data_2min_56days(ticker_list):
+    # end_date = datetime.today().strftime('%Y-%m-%d')
+    # end_date = (datetime.today() - timedelta(days=60))
+    # start_date = datetime.today()
+
+    dates = pd.date_range(end=datetime.today().strftime(
+        '%Y-%m-%d'), periods=8, freq='7D')
+    print(dates)
+
+    i = 0
+    dataframe = pd.DataFrame([])
+    for date in dates:
+        print(date)
+        if i < 7:
+            data = yf.download(
+                ticker_list, dates[i], dates[i+1], group_by='Ticker', interval="2m")
+            # print(data)
+            data = data.stack(level=0).rename_axis(
+                ['Date', 'Ticker']).reset_index(level=1)
+            dataframe = dataframe.append(data)
+            print(dataframe)
+            time.sleep(2)
+
+        i += 1
+    dataframe.to_csv("assets/historical.csv")
+    # end =
+    #data = yf.download(ticker_list, start_date, end_date, interval="1m")
+    # Plot the close prices
+    # print(data)
+
+
 # Example usage
-get_stock_data(ticker_list="AAPL MC.PA", start_date="2021-01-01",
-               end_date="2021-08-01", interval="1h")
+# get_stock_data(ticker_list="AAPL MC.PA", start_date="2021-03-01", end_date="2021-04-06", interval="15m")
+get_stock_data_2min_56days(ticker_list=['AAPL', 'MSFT'])
