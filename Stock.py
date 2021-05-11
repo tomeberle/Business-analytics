@@ -30,9 +30,11 @@ def get_stock_data(ticker_list, start_date, end_date, interval):
 
 
 def get_stock_data_2min_56days(ticker_list):
-    # end_date = datetime.today().strftime('%Y-%m-%d')
-    # end_date = (datetime.today() - timedelta(days=60))
-    # start_date = datetime.today()
+    """
+    Get's stock data every 2min for the last 56 days. Stops on same time yesterday (e.g. today() - 1 day).
+    Input: ticker_list=['AAPL', 'MSFT']
+    Output: CSV 'assets/historical.csv' with [Date,Ticker,Adj Close,Close,High,Low,Open,Volume]
+    """
 
     dates = pd.date_range(end=datetime.today().strftime(
         '%Y-%m-%d'), periods=8, freq='7D')
