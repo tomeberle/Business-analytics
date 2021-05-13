@@ -1,14 +1,19 @@
 import csv
 import snscrape.modules.twitter as sntwitter
 import pandas as pd
-import datetime
 
 # Creating list to append tweet data to
 tweets_list1 = []
-account_list = ['cnbc', 'WSJmarkets']
+ACCOUNT_CSV = "C:/Users/patri/Desktop/HEC/5th Bimester/Business Analytics/twitter_accounts.csv"
+
 # Using TwitterSearchScraper to scrape data and append tweets to list
+account_df1 = pd.read_csv(ACCOUNT_CSV)
+account_df1 = account_df1.fillna('')
+account_list = account_df1["twitter_account_company"].values.tolist()
+account_list = list(filter(None, account_list))
+
 for account in account_list:
-    for tweet in sntwitter.TwitterSearchScraper('from:' +account+ ' since:2021-05-01').get_items():
+    for tweet in sntwitter.TwitterSearchScraper('from:' +account+ ' since:2021-05-12').get_items():
         tweets_list1.append([tweet.date, tweet.id, tweet.content, tweet.username])
 
 # Creating a dataframe from the tweets list above & cleaning
@@ -16,12 +21,15 @@ tweets_df1 = pd.DataFrame(tweets_list1, columns=[
                           'Datetime', 'Tweet Id', 'Text', 'Username'])
 tweets_df1['Text'] = tweets_df1['Text'].str.lower()
 # getting rid of everything except letters (a-z)
-tweets_df1['Text'] = tweets_df1['Text'].replace(
-    r'[^a-z ]', '', regex=True).replace("'", '')
 tweets_df1['Text'] = tweets_df1['Text'].apply(lambda x: ' '.join(
     [y for y in x.split() if 'http' not in y]))  # getting rid of the links
-tweets_df1['Datetime'] = tweets_df1['Datetime'] + \
-    datetime.timedelta(hours=+2)  # fixing time to Paris time
+tweets_df1['Text'] = tweets_df1['Text'].apply(lambda x: ' '.join(
+    [y for y in x.split() if '#' not in y]))  # getting rid of the hashtags
+tweets_df1['Text'] = tweets_df1['Text'].replace(
+    r'[^a-z ]', ' ', regex=True).replace("'", '')
+
+tweets_df1['Text'] = tweets_df1['Text'].str.replace(' +', ' ')
+
 # splitting datetime into date and time
 tweets_df1['Date'] = [d.date() for d in tweets_df1['Datetime']]
 tweets_df1['Time'] = [d.time() for d in tweets_df1['Datetime']]
