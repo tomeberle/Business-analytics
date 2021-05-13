@@ -13,20 +13,27 @@ account_list = account_df1["twitter_account_company"].values.tolist()
 account_list = list(filter(None, account_list))
 
 for account in account_list:
-    for tweet in sntwitter.TwitterSearchScraper('from:' +account+ ' since:2021-05-12').get_items():
+    for tweet in sntwitter.TwitterSearchScraper('from:' +account+ ' since:2021-05-02').get_items():
         tweets_list1.append([tweet.date, tweet.id, tweet.content, tweet.username])
 
-# Creating a dataframe from the tweets list above & cleaning
+# Creating a dataframe from the tweets list above
 tweets_df1 = pd.DataFrame(tweets_list1, columns=[
                           'Datetime', 'Tweet Id', 'Text', 'Username'])
+# Dropping replies
+tweets_df1['First'] = tweets_df1['Text'].astype(str).str[0]
+tweets_df1.drop(tweets_df1[tweets_df1['First'] == '@'].index, inplace = True)
+del tweets_df1['First']
+
 tweets_df1['Text'] = tweets_df1['Text'].str.lower()
 # getting rid of everything except letters (a-z)
 tweets_df1['Text'] = tweets_df1['Text'].apply(lambda x: ' '.join(
     [y for y in x.split() if 'http' not in y]))  # getting rid of the links
 tweets_df1['Text'] = tweets_df1['Text'].apply(lambda x: ' '.join(
     [y for y in x.split() if '#' not in y]))  # getting rid of the hashtags
+
+tweets_df1['Text'] = tweets_df1['Text'].replace("'", '', regex=True)
 tweets_df1['Text'] = tweets_df1['Text'].replace(
-    r'[^a-z ]', ' ', regex=True).replace("'", '')
+    r'[^a-z ]', ' ', regex=True)
 
 tweets_df1['Text'] = tweets_df1['Text'].str.replace(' +', ' ')
 
