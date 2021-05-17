@@ -1,0 +1,68 @@
+company_name,symbol,stock_exchange,twitter_account_company,twitter_account_ceo
+apple,AAPL,NASDAQ,,tim_cook
+microsoft,MSFT,NASDAQ,Microsoft,satyanadella
+amazon,AMZN,NASDAQ,amazon,JeffBezos
+alphabet,GOOG,NASDAQ,Google,sundarpichai
+tesla,TSLA,NASDAQ,Tesla,elonmusk
+nvidia,NVDA,NASDAQ,nvidia,
+paypal,PYPL,NASDAQ,PayPal,
+comcast,CMCSA,NASDAQ,comcast,
+adobe,ADBE,NASDAQ,Adobe,
+intel,INTC,NASDAQ,intel,PGelsinger
+cisco,CSCO,NASDAQ,Cisco,ChuckRobbins
+netflix,NFLX,NASDAQ,netflix,
+pepsi,PEP,NASDAQ,pepsi,ramonlaguarta
+texas instruments,TXN,NASDAQ,TXInstruments,
+qualcomm,QCOM,NASDAQ,Qualcomm,
+starbucks,SBUX,NASDAQ,Starbucks,Kevin_Johnson
+mondelez,MDLZ,NASDAQ,MDLZ,Dirkvandeput
+activision blizzard,ATVI,NASDAQ,Activision,BobbyKotick
+zoom,ZM,NASDAQ,Zoom,ericsyuan
+moderna,MRNA,NASDAQ,moderna_tx,
+kraft heinz,KHC,NASDAQ,KraftHeinzCo,
+monster,MNST,NASDAQ,MonsterEnergy,
+lululemon,LULU,NASDAQ,lululemon,calvinmcdonald
+electronic arts,EA,NASDAQ,EA,
+ebay,EBAY,NASDAQ,eBay,
+dr pepper,KDP,NASDAQ,drpepper,
+accenture,ACN,NYSE,Accenture,JulieSweet
+3m,MMM,NYSE,3M,
+att,T,NYSE,ATT,
+bank of america,BAC,NYSE,BankofAmerica,
+boeing,BA,NYSE,Boeing,
+caterpillar,CAT,NYSE,CaterpillarInc,
+citigroup,C,NYSE,Citi,
+coca cola,KO,NYSE,CocaCola,
+colgate palmolive,CL,NYSE,CP_News,
+john deere,DE,NYSE,JohnDeere,
+exxon,XOM,NYSE,exxonmobil,
+ford,F,NYSE,Ford,jimfarley98
+fedex,FDX,NYSE,FedEx,
+general electric,GE,NYSE,generalelectric,
+general motors,GM,NYSE,GM,mtbarra
+goldman sachs,GS,NYSE,GoldmanSachs,
+home depot,HD,NYSE,HomeDepot,
+hp,HP,NYSE,HP,EnriqueJLores
+ibm,IBM,NYSE,IBM,ArvindKrishna
+jp morgan,JPM,NYSE,jpmorgan,
+mastercard,MA,NYSE,Mastercard,
+mc donalds,MCD,NYSE,McDonalds,
+morgan stanley,MS,NYSE,MorganStanley,
+nike,NKE,NYSE,Nike,
+pfizer,PFE,NYSE,pfizer,AlbertBourla
+philip morris,PM,NYSE,InsidePMI,
+procter gamble,PG,NYSE,ProcterGamble,
+target,TGT,NYSE,Target,
+disney,DIS,NYSE,Disney,
+walmart,WMT,NYSE,Walmart,
+visa,V,NYSE,Visa,
+wells fargo,WFC,NYSE,WellsFargo,
+ups,UPS,NYSE,UPS,CarolBTome
+verizon,VZ,NYSE,Verizon,hansvestberg
+travelers,TRV,NYSE,Travelers,AlanSchnitzer
+t mobile us,TMUS,NASDAQ,Tmobile,MikeSievert
+intuit,INTU,NASDAQ,Intuit,sasan_goodarzi
+illumina,ILMN,NASDAQ,illumina,fdesouza
+okta,OKTA,NASDAQ,okta,toddmckinnon
+cerner,CERN,NASDAQ,Cerner,BrentShaferCEO
+peloton,PTON,NASDAQ,onepeloton,keylargofoley
