@@ -13,15 +13,16 @@ account_list = account_df1["twitter_account_company"].values.tolist()
 account_list = list(filter(None, account_list))
 
 for account in account_list:
-    for tweet in sntwitter.TwitterSearchScraper('from:' +account+ ' since:2021-05-02').get_items():
-        tweets_list1.append([tweet.date, tweet.id, tweet.content, tweet.username])
+    for tweet in sntwitter.TwitterSearchScraper('from:' + account + ' since:2021-05-02').get_items():
+        tweets_list1.append(
+            [tweet.date, tweet.id, tweet.content, tweet.username])
 
 # Creating a dataframe from the tweets list above
 tweets_df1 = pd.DataFrame(tweets_list1, columns=[
                           'Datetime', 'Tweet Id', 'Text', 'Username'])
 # Dropping replies
 tweets_df1['First'] = tweets_df1['Text'].astype(str).str[0]
-tweets_df1.drop(tweets_df1[tweets_df1['First'] == '@'].index, inplace = True)
+tweets_df1.drop(tweets_df1[tweets_df1['First'] == '@'].index, inplace=True)
 del tweets_df1['First']
 
 tweets_df1['Text'] = tweets_df1['Text'].str.lower()
@@ -40,7 +41,7 @@ tweets_df1['Text'] = tweets_df1['Text'].str.replace(' +', ' ')
 # splitting datetime into date and time
 tweets_df1['Date'] = [d.date() for d in tweets_df1['Datetime']]
 tweets_df1['Time'] = [d.time() for d in tweets_df1['Datetime']]
-del tweets_df1['Datetime']
+# del tweets_df1['Datetime']
 del tweets_df1['Tweet Id']
 column_names = ['Username', 'Date', 'Time', 'Text']  # reordering columns
 tweets_df1 = tweets_df1.reindex(columns=column_names)
@@ -76,4 +77,5 @@ def sentiment(sentence):
 tweets_df1['Sentiment'] = tweets_df1['Text'].apply(sentiment)
 
 # Export as CSV
-tweets_df1.to_csv(r'C:\Users\patri\Desktop\HEC\5th Bimester\Business Analytics\twitter_sentiment.csv', encoding='utf-8-sig')
+tweets_df1.to_csv(
+    r'C:\Users\patri\Desktop\HEC\5th Bimester\Business Analytics\twitter_sentiment.csv', encoding='utf-8-sig')
