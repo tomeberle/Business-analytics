@@ -1,6 +1,8 @@
 from cleanco import prepare_terms, basename
 import csv
-
+import pandas as pd
+from datetime import datetime
+import time
 
 content = []
 
@@ -49,5 +51,22 @@ def find_companies(content):
     # TODO: create new column with tickers
 
 
-content = load_csv(filename='reddit_output', subfolder='output')
-find_companies(content)
+def find_stock_movement(ticker, datetime):
+    df = pd.read_csv("output/historical.csv")
+    datetime = datetime.strptime(datetime, "%Y-%m-%d %H:%M:%S%z")
+    print(datetime.tzinfo)
+
+    # Find tickers that match
+    # Check if time is within time
+
+    #df = df.assign(Timestamp=pd.Series(datetime.timestamp(df.Date)))
+    # print(df)
+    #content = load_csv(filename='reddit_output', subfolder='output')
+    # find_companies(content)
+
+
+ticker = "WSJmarkets"
+datetime = "2021-03-26 14:20:00-04:00"
+
+
+find_stock_movement(ticker, datetime)

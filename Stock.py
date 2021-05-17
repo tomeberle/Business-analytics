@@ -41,7 +41,8 @@ def get_stock_data_2min_56days(ticker_list):
     print(dates)
 
     i = 0
-    dataframe = pd.DataFrame([])
+    # dataframe = pd.DataFrame([])
+    dataframe = []
     for date in dates:
         print(date)
         if i < 7:
@@ -50,14 +51,15 @@ def get_stock_data_2min_56days(ticker_list):
             # print(data)
             data = data.stack(level=0).rename_axis(
                 ['Date', 'Ticker']).reset_index(level=1)
-            dataframe = dataframe.append(data)
+            dataframe = pd.DataFrame(dataframe).append(data)
             print(dataframe)
             time.sleep(2)
 
         i += 1
-    dataframe.to_csv("assets/historical.csv")
+    dataframe.to_csv("output/historical.csv")
+
     # end =
-    #data = yf.download(ticker_list, start_date, end_date, interval="1m")
+    # data = yf.download(ticker_list, start_date, end_date, interval="1m")
     # Plot the close prices
     # print(data)
 
