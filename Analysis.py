@@ -1,7 +1,7 @@
 from cleanco import prepare_terms, basename
 import csv
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, timedelta
 import time
 
 content = []
@@ -51,22 +51,43 @@ def find_companies(content):
     # TODO: create new column with tickers
 
 
-def find_stock_movement(ticker, datetime):
-    df = pd.read_csv("output/historical.csv")
-    datetime = datetime.strptime(datetime, "%Y-%m-%d %H:%M:%S%z")
-    print(datetime.tzinfo)
+def find_stock_movement(ticker, date, interval_minutes):
+    """
+    Input: ticker (e.g. "MSFT"), date (format "2021-03-26 14:20:00-04:00"), interval_hours (e.g. 1h - checks for +/- 1h), interval_minutes
+    """
+    # Reading historical stock data
+    df = pd.read_csv("output/historical.csv", parse_dates=["Date"])
 
-    # Find tickers that match
-    # Check if time is within time
+    # Working on dates to create the interval to check
+    date = datetime.strptime(date, "%Y-%m-%d %H:%M:%S%z")
+    delta = timedelta(minutes=interval_minutes)
+    date_plus_delta = date + delta
+    date_minus_delta = date - delta
+    print(date)
+    print(date_plus_delta)
+    print(date_minus_delta)
 
-    #df = df.assign(Timestamp=pd.Series(datetime.timestamp(df.Date)))
-    # print(df)
-    #content = load_csv(filename='reddit_output', subfolder='output')
-    # find_companies(content)
+    # Finding tickers that matches the requested one
+    df = df.loc[df['Ticker'] == ticker]
+    print(df)
+
+    # Extract stock price within interval
+    df = df[(df['Date'] > date_minus_delta) & (df['Date'] < date_plus_delta)]
+    print(df)
+
+    # Filter for first and last in interval
+    df = df.iloc[[0, -1]]
+    print(df)
+    price_start = df['Close'].values[0]
+    price_close = df['Close'].values[1]
+    print('Start price was ' + str(price_start) +
+          ' Close price was ' + str(price_close))
+
+    # TODO : ADD 1 or -1 whether price went up or down. + Significance?
 
 
-ticker = "WSJmarkets"
-datetime = "2021-03-26 14:20:00-04:00"
+ticker = "MSFT"
+date = "2021-03-26 14:20:00-04:00"
 
 
-find_stock_movement(ticker, datetime)
+find_stock_movement(ticker, date, interval_minutes=20)
