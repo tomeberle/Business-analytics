@@ -4,7 +4,7 @@ import pandas as pd
 
 # Creating list to append tweet data to
 tweets_list1 = []
-ACCOUNT_CSV = "C:/Users/patri/Desktop/HEC/5th Bimester/Business Analytics/twitter_accounts_test.csv"
+ACCOUNT_CSV = "C:/Users/patri/Desktop/HEC/5th Bimester/Business Analytics/twitter_accounts.csv"
 
 # Using TwitterSearchScraper to scrape data and append tweets to list
 account_df1 = pd.read_csv(ACCOUNT_CSV)
