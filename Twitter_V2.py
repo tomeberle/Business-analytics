@@ -4,7 +4,7 @@ import pandas as pd
 
 # Creating list to append tweet data to
 tweets_list1 = []
-ACCOUNT_CSV = "C:/Users/patri/Desktop/HEC/5th Bimester/Business Analytics/twitter_accounts_test.csv"
+ACCOUNT_CSV = "C:/Users/patri/Desktop/HEC/5th Bimester/Business Analytics/twitter_accounts.csv"
 
 # Using TwitterSearchScraper to scrape data and append tweets to list
 account_df1 = pd.read_csv(ACCOUNT_CSV)
@@ -25,8 +25,6 @@ tweets_df1['First'] = tweets_df1['Text'].astype(str).str[0]
 tweets_df1.drop(tweets_df1[tweets_df1['First'] == '@'].index, inplace=True)
 del tweets_df1['First']
 
-tweets_df1['Text'] = tweets_df1['Text'].replace("'", '', regex=True)
-tweets_df1['Text'] = tweets_df1['Text'].replace("’", '', regex=True)
 tweets_df1['Text'] = tweets_df1['Text'].str.lower()
 # getting rid of everything except letters (a-z)
 tweets_df1['Text'] = tweets_df1['Text'].apply(lambda x: ' '.join(
@@ -34,7 +32,7 @@ tweets_df1['Text'] = tweets_df1['Text'].apply(lambda x: ' '.join(
 tweets_df1['Text'] = tweets_df1['Text'].apply(lambda x: ' '.join(
     [y for y in x.split() if '#' not in y]))  # getting rid of the hashtags
 
-
+tweets_df1['Text'] = tweets_df1['Text'].replace("'", '', regex=True)
 tweets_df1['Text'] = tweets_df1['Text'].replace(
     r'[^a-z ]', ' ', regex=True)
 
@@ -76,8 +74,8 @@ def sentiment(sentence):
     return sentiment
 
 
-tweets_df1['Sentiment'] = tweets_df1['Text'].apply(sentiment)    
-    
+tweets_df1['Sentiment'] = tweets_df1['Text'].apply(sentiment)
+
 # Export as CSV
 tweets_df1.to_csv(
     r'C:\Users\patri\Desktop\HEC\5th Bimester\Business Analytics\twitter_sentiment.csv', encoding='utf-8-sig')
