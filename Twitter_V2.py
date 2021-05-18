@@ -33,6 +33,7 @@ tweets_df1['Text'] = tweets_df1['Text'].apply(lambda x: ' '.join(
     [y for y in x.split() if '#' not in y]))  # getting rid of the hashtags
 
 tweets_df1['Text'] = tweets_df1['Text'].replace("'", '', regex=True)
+tweets_df1['Text'] = tweets_df1['Text'].replace("’", '', regex=True)
 tweets_df1['Text'] = tweets_df1['Text'].replace(
     r'[^a-z ]', ' ', regex=True)
 
