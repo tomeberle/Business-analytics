@@ -79,4 +79,4 @@ tweets_df1['Sentiment'] = tweets_df1['Text'].apply(sentiment)
 
 # Export as CSV
 tweets_df1.to_csv(
-    r'C:\Users\patri\Desktop\HEC\5th Bimester\Business Analytics\twitter_sentiment.csv', encoding='utf-8-sig')
+    r'C:\Users\patri\Desktop\HEC\5th Bimester\Business Analytics\twitter_sentiment_companies.csv', encoding='utf-8-sig')
