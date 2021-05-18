@@ -51,9 +51,11 @@ def find_companies(content):
     # TODO: create new column with tickers
 
 
-def find_stock_movement(ticker, date, interval_minutes):
+def find_stock_movement(ticker, date, interval_minutes, sensitivity):
     """
+    Functions that finds the stock price movement for a given ticker and time.
     Input: ticker (e.g. "MSFT"), date (format "2021-03-26 14:20:00-04:00"), interval_hours (e.g. 1h - checks for +/- 1h), interval_minutes
+    Output: returns +1, -1, or 0 (corresponding to upward move, downward move, no siginificant move)
     """
     # Reading historical stock data
     df = pd.read_csv("output/historical.csv", parse_dates=["Date"])
@@ -74,6 +76,7 @@ def find_stock_movement(ticker, date, interval_minutes):
     # Extract stock price within interval
     df = df[(df['Date'] > date_minus_delta) & (df['Date'] < date_plus_delta)]
     print(df)
+    # TODO: handle exception if no stock data available
 
     # Filter for first and last in interval
     df = df.iloc[[0, -1]]
@@ -83,11 +86,25 @@ def find_stock_movement(ticker, date, interval_minutes):
     print('Start price was ' + str(price_start) +
           ' Close price was ' + str(price_close))
 
-    # TODO : ADD 1 or -1 whether price went up or down. + Significance?
+    # Assess price movement
+    delta = (price_close - price_start) / price_start
+    print('Delta : ' + str(delta))
+    if (abs(delta) >= sensitivity):
+        # Significant movement
+        if delta > 0:
+            return 1
+        if delta < 0:
+            return -1
+        else:
+            return 0
+    else:
+        # Not significant
+        return 0
 
 
 ticker = "MSFT"
 date = "2021-03-26 14:20:00-04:00"
 
 
-find_stock_movement(ticker, date, interval_minutes=20)
+a = find_stock_movement(ticker, date, interval_minutes=20, sensitivity=0.01)
+print('a :', a)
