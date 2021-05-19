@@ -51,30 +51,25 @@ def find_companies(content):
     # TODO: create new column with tickers
 
 
-def find_stock_movement(ticker, date, time_before_tweet, time_after_tweet, sensitivity):
+def find_stock_movement(ticker, date, time_before_tweet, time_after_tweet, sensitivity, df):
     """
     Functions that finds the stock price movement for a given ticker and time.
     Input: ticker (e.g. "MSFT"), date (format "2021-03-26 14:20:00-04:00"), time_before_tweet, time_after_tweet (in minutes)
     Output: returns +1, -1, 0 or None (corresponding to upward move, downward move, no siginificant move, no stock data)
     """
-    # Reading historical stock data
-    df = pd.read_csv("output/historical.csv", parse_dates=["Date"])
+    print('Called with:' + str([ticker, date]))
 
     # Working on dates to create the interval to check
     date = datetime.strptime(date, "%Y-%m-%d %H:%M:%S%z")
     date_plus_delta = date + timedelta(minutes=time_after_tweet)
     date_minus_delta = date - timedelta(minutes=time_before_tweet)
-    print(date)
-    print(date_plus_delta)
-    print(date_minus_delta)
 
     # Finding tickers that matches the requested one
     df = df.loc[df['Ticker'] == ticker]
-    print(df)
 
     # Extract stock price within interval
-    df = df[(df['Date'] > date_minus_delta) & (df['Date'] < date_plus_delta)]
-    print(df)
+    df = df[(df['Date'] > date_minus_delta)
+            & (df['Date'] < date_plus_delta)]
 
     # If no stock data, returns N/A
     if df.empty:
@@ -86,12 +81,12 @@ def find_stock_movement(ticker, date, time_before_tweet, time_after_tweet, sensi
     print(df)
     price_start = df['Close'].values[0]
     price_close = df['Close'].values[1]
-    print('Start price was ' + str(price_start) +
-          ' Close price was ' + str(price_close))
 
     # Assess price movement
     delta = (price_close - price_start) / price_start
     print('Delta : ' + str(delta))
+    print('Start price was ' + str(price_start) +
+          ' Close price was ' + str(price_close) + '.'+'Ticker: '+ticker+'. Date: ' + str(date) + '. Delta: ' + str(delta))
     if (abs(delta) >= sensitivity):
         # Significant movement
         if delta > 0:
@@ -103,10 +98,6 @@ def find_stock_movement(ticker, date, time_before_tweet, time_after_tweet, sensi
     else:
         # Not significant
         return 0
-
-
-ticker = "MSFT"
-date = "2021-03-26 14:20:00-04:00"
 
 
 # a = find_stock_movement(ticker, date, interval_minutes=20, sensitivity=0.01)
