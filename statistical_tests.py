@@ -60,7 +60,7 @@ def run_chisquared_ceo(tweets_df1):
 
 
 def run_gtest_ceo(tweets_df1):
-    tweets_df1 = pd.read_csv("output/twitter_sentiment_companies.csv")
+    tweets_df1 = pd.read_csv("output/twitter_sentiment_ceos.csv")
     tweets_df1.dropna(subset=["Movement"], inplace=True)
     
     tweets_df1.loc[(tweets_df1.Sentiment > 0),'Sentiment']= 1
