@@ -39,4 +39,4 @@ def treat_companies(filename):
         writer.writerows(output)
 
 
-treat_companies('nasdaq-listed')
+# treat_companies('nasdaq-listed')

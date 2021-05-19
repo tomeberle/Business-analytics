@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from datetime import datetime
 import time
+import os.path
 
 
 def get_stock_data(ticker_list, start_date, end_date, interval):
@@ -35,6 +36,9 @@ def get_stock_data_2min_56days(ticker_list):
     Input: ticker_list=['AAPL', 'MSFT']
     Output: CSV 'assets/historical.csv' with [Date,Ticker,Adj Close,Close,High,Low,Open,Volume]
     """
+    if os.path.isfile("output/historical.csv"):
+        print("File already exist - skipping stock data extraction.")
+        return
 
     dates = pd.date_range(end=datetime.today().strftime(
         '%Y-%m-%d'), periods=8, freq='7D')
@@ -66,4 +70,4 @@ def get_stock_data_2min_56days(ticker_list):
 
 # Example usage
 # get_stock_data(ticker_list="AAPL MC.PA", start_date="2021-03-01", end_date="2021-04-06", interval="15m")
-get_stock_data_2min_56days(ticker_list=['AAPL', 'MSFT'])
+#get_stock_data_2min_56days(ticker_list=['AAPL', 'MSFT'])
