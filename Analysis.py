@@ -51,10 +51,10 @@ def find_companies(content):
     # TODO: create new column with tickers
 
 
-def find_stock_movement(ticker, date, interval_minutes, sensitivity):
+def find_stock_movement(ticker, date, time_before_tweet, time_after_tweet, sensitivity):
     """
     Functions that finds the stock price movement for a given ticker and time.
-    Input: ticker (e.g. "MSFT"), date (format "2021-03-26 14:20:00-04:00"), interval_hours (e.g. 1h - checks for +/- 1h), interval_minutes
+    Input: ticker (e.g. "MSFT"), date (format "2021-03-26 14:20:00-04:00"), time_before_tweet, time_after_tweet (in minutes)
     Output: returns +1, -1, or 0 (corresponding to upward move, downward move, no siginificant move)
     """
     # Reading historical stock data
@@ -62,9 +62,8 @@ def find_stock_movement(ticker, date, interval_minutes, sensitivity):
 
     # Working on dates to create the interval to check
     date = datetime.strptime(date, "%Y-%m-%d %H:%M:%S%z")
-    delta = timedelta(minutes=interval_minutes)
-    date_plus_delta = date + delta
-    date_minus_delta = date - delta
+    date_plus_delta = date + timedelta(minutes=time_after_tweet)
+    date_minus_delta = date - timedelta(minutes=time_before_tweet)
     print(date)
     print(date_plus_delta)
     print(date_minus_delta)

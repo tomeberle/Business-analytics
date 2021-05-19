@@ -13,8 +13,10 @@ stock_prices = get_stock_data_2min_56days(symbols)
 
 # Fetch Twitter CEO Posts
 CEO_tweets = get_CEOs_twitter_posts(companies)
-print(CEO_tweets)
 # Add Stock Price Movement in new column
+
+print(CEO_tweets)
+
 
 # Fetch Twitter Company Posts
 company_tweets = get_company_twitter_posts(companies)
