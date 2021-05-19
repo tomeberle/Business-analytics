@@ -8,8 +8,9 @@ def get_CEOs_twitter_posts(account_df1):
     # Check if file exist
     if os.path.isfile("output/twitter_sentiment_ceos.csv"):
         print("File already exist - skipping CEO data extraction.")
-        return
+        return pd.read_csv("output/twitter_sentiment_ceos.csv")
 
+    print("CEO tweets extraction...")
     # Creating list to append tweet data to
     tweets_list1 = []
 
@@ -86,3 +87,4 @@ def get_CEOs_twitter_posts(account_df1):
     # Export as CSV
     tweets_df1.to_csv("output/twitter_sentiment_ceos.csv",
                       encoding='utf-8-sig')
+    return tweets_df1

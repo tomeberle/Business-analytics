@@ -9,16 +9,18 @@ companies = pd.read_csv("assets/twitter_accounts.csv")
 symbols = companies["symbol"].tolist()
 
 # Fetch stock data
-get_stock_data_2min_56days(symbols)
-
-# Fetch Twitter Company Posts
-get_company_twitter_posts(companies)
-
-# Add Stock Price Movement in new column
+stock_prices = get_stock_data_2min_56days(symbols)
 
 # Fetch Twitter CEO Posts
-get_CEOs_twitter_posts(companies)
+CEO_tweets = get_CEOs_twitter_posts(companies)
+print(CEO_tweets)
+# Add Stock Price Movement in new column
+
+# Fetch Twitter Company Posts
+company_tweets = get_company_twitter_posts(companies)
+print(company_tweets)
 
 # Add Stock Price Movement in new column
+
 
 # Statistical tests Company Posts & CEO Posts

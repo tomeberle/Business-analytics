@@ -8,8 +8,9 @@ def get_company_twitter_posts(account_df1):
     # Check if file exist
     if os.path.isfile("output/twitter_sentiment_companies.csv"):
         print("File already exist - skipping company data extraction.")
-        return
-    
+        return pd.read_csv("output/twitter_sentiment_companies.csv")
+
+    print("Company tweets extraction...")
     # Creating list to append tweet data to
     tweets_list1 = []
 
@@ -50,7 +51,7 @@ def get_company_twitter_posts(account_df1):
     # splitting datetime into date and time
     tweets_df1['Date'] = [d.date() for d in tweets_df1['Datetime']]
     tweets_df1['Time'] = [d.time() for d in tweets_df1['Datetime']]
-    
+
     # del tweets_df1['Datetime']
     del tweets_df1['Tweet Id']
     column_names = ['Username', 'Date', 'Time', 'Text']  # reordering columns
@@ -86,3 +87,4 @@ def get_company_twitter_posts(account_df1):
     # Export as CSV
     tweets_df1.to_csv('output/twitter_sentiment_companies.csv',
                       encoding='utf-8-sig')
+    return tweets_df1
