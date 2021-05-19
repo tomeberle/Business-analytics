@@ -15,18 +15,19 @@ def get_company_twitter_posts(account_df1):
     tweets_list1 = []
 
     # Using TwitterSearchScraper to scrape data and append tweets to list
-    account_df1 = account_df1.fillna('')
+    account_df1 = account_df1.dropna()
     account_list = account_df1["twitter_account_company"].values.tolist()
-    account_list = list(filter(None, account_list))
+    symbol_list = account_df1["symbol"].values.tolist()
 
-    for account in account_list:
+    for index, account in enumerate(account_list):
+        symbol = symbol_list[index]
         for tweet in sntwitter.TwitterSearchScraper('from:' + account + ' since:2021-04-05 until:2021-05-18').get_items():
             tweets_list1.append(
-                [tweet.date, tweet.id, tweet.content, tweet.username])
+                [tweet.date, tweet.id, tweet.content, tweet.username, symbol])
 
     # Creating a dataframe from the tweets list above
     tweets_df1 = pd.DataFrame(tweets_list1, columns=[
-        'Datetime', 'Tweet Id', 'Text', 'Username'])
+        'Datetime', 'Tweet Id', 'Text', 'Username', 'Symbol'])
 
     # Dropping replies
     tweets_df1['First'] = tweets_df1['Text'].astype(str).str[0]
@@ -49,7 +50,8 @@ def get_company_twitter_posts(account_df1):
     tweets_df1['Text'] = tweets_df1['Text'].str.replace(' +', ' ')
 
     del tweets_df1['Tweet Id']
-    column_names = ['Username', 'Datetime', 'Text']  # reordering columns
+    column_names = ['Username', 'Datetime',
+                    'Text', 'Symbol']  # reordering columns
     tweets_df1 = tweets_df1.reindex(columns=column_names)
 
     # Sentiment Analysis
