@@ -48,13 +48,8 @@ def get_company_twitter_posts(account_df1):
 
     tweets_df1['Text'] = tweets_df1['Text'].str.replace(' +', ' ')
 
-    # splitting datetime into date and time
-    tweets_df1['Date'] = [d.date() for d in tweets_df1['Datetime']]
-    tweets_df1['Time'] = [d.time() for d in tweets_df1['Datetime']]
-
-    # del tweets_df1['Datetime']
     del tweets_df1['Tweet Id']
-    column_names = ['Username', 'Date', 'Time', 'Text']  # reordering columns
+    column_names = ['Username', 'Datetime', 'Text']  # reordering columns
     tweets_df1 = tweets_df1.reindex(columns=column_names)
 
     # Sentiment Analysis
