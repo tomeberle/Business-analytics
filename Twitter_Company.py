@@ -15,8 +15,12 @@ def get_company_twitter_posts(account_df1):
     tweets_list1 = []
 
     # Using TwitterSearchScraper to scrape data and append tweets to list
+    print(account_df1)
+    account_df1 = account_df1.dropna(subset=['twitter_account_company'])
     account_list = account_df1["twitter_account_company"].values.tolist()
+    print(account_list)
     symbol_list = account_df1["symbol"].values.tolist()
+    print(symbol_list)
 
     for index, account in enumerate(account_list):
         symbol = symbol_list[index]

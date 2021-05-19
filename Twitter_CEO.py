@@ -16,8 +16,7 @@ def get_CEOs_twitter_posts(account_df1):
 
     # Using TwitterSearchScraper to scrape data and append tweets to list
     # Removing companies without a CEO
-    account_df1 = account_df1.dropna()
-    account_df1 = account_df1.fillna('')
+    account_df1 = account_df1.dropna(subset=['twitter_account_ceo'])
     account_list = account_df1["twitter_account_ceo"].values.tolist()
     symbol_list = account_df1["symbol"].values.tolist()
 
