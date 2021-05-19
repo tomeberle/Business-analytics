@@ -38,7 +38,7 @@ def get_stock_data_2min_56days(ticker_list):
     """
     if os.path.isfile("output/historical.csv"):
         print("File already exist - skipping stock data extraction.")
-        return pd.read_csv("output/historical.csv")
+        return pd.read_csv("output/historical.csv", parse_dates=["Date"])
 
     dates = pd.date_range(end=datetime.today().strftime(
         '%Y-%m-%d'), periods=8, freq='7D')
