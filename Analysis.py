@@ -75,7 +75,11 @@ def find_stock_movement(ticker, date, time_before_tweet, time_after_tweet, sensi
     # Extract stock price within interval
     df = df[(df['Date'] > date_minus_delta) & (df['Date'] < date_plus_delta)]
     print(df)
-    # TODO: handle exception if no stock data available
+
+    # If no stock data, returns N/A
+    if df.empty:
+        print('DataFrame is empty!')
+        return None
 
     # Filter for first and last in interval
     df = df.iloc[[0, -1]]
