@@ -7,9 +7,9 @@ from Analysis import find_stock_movement
 from statistical_tests import run_chisquared_company, run_gtest_company, run_chisquared_ceo, run_gtest_ceo
 
 # Parameters
-TIME_BEFORE_TWEET = 10  # in minutes
+TIME_BEFORE_TWEET = 2  # in minutes
 TIME_AFTER_TWEET = 4  # in minutes
-SENSITIVITY = 0.005  # threashold for significant price movement
+SENSITIVITY = 0.0001  # threshold for significant price movement
 
 # Load list of companies
 companies = pd.read_csv("assets/twitter_accounts.csv")
