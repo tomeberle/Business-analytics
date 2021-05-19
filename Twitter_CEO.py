@@ -60,7 +60,7 @@ def get_CEOs_twitter_posts(account_df1):
 
     # Sentiment Analysis
 
-    SENTIMENT_CSV = "C:/Users/patri/Desktop/HEC/5th Bimester/Business Analytics/Session 2/Part 2/word_sentiment.csv"
+    SENTIMENT_CSV = "assets/word_sentiment.csv"
     NEGATIVE_WORDS = ["not", "dont", "doesnt", "no", "arent", "isnt"]
 
     def word_sentiment(word):
