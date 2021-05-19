@@ -4,6 +4,7 @@ from Stock import get_stock_data_2min_56days
 from Twitter_CEO import get_CEOs_twitter_posts
 from Twitter_Company import get_company_twitter_posts
 from Analysis import find_stock_movement
+from statistical_tests import run_chisquared_company, run_gtest_company, run_chisquared_ceo, run_gtest_ceo
 
 # Parameters
 TIME_BEFORE_TWEET = 10  # in minutes
@@ -36,3 +37,10 @@ print(company_tweets)
 
 
 # Statistical tests Company Posts & CEO Posts
+sentiment_company = pd.read_csv("output/twitter_sentiment_companies.csv")
+sentiment_ceo = pd.read_csv("output/twitter_sentiment_ceos.csv")
+
+run_chisquared_company(sentiment_company)
+run_gtest_company(sentiment_company)
+run_chisquared_ceo(sentiment_ceo)
+run_gtest_ceo(sentiment_ceo)
