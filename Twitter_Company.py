@@ -15,13 +15,13 @@ def get_company_twitter_posts(account_df1):
     tweets_list1 = []
 
     # Using TwitterSearchScraper to scrape data and append tweets to list
-    account_df1 = account_df1.dropna()
     account_list = account_df1["twitter_account_company"].values.tolist()
     symbol_list = account_df1["symbol"].values.tolist()
 
     for index, account in enumerate(account_list):
         symbol = symbol_list[index]
         for tweet in sntwitter.TwitterSearchScraper('from:' + account + ' since:2021-04-05 until:2021-05-18').get_items():
+            print([tweet.date, tweet.id, tweet.content, tweet.username, symbol])
             tweets_list1.append(
                 [tweet.date, tweet.id, tweet.content, tweet.username, symbol])
 
@@ -53,7 +53,7 @@ def get_company_twitter_posts(account_df1):
     column_names = ['Username', 'Datetime',
                     'Text', 'Symbol']  # reordering columns
     tweets_df1 = tweets_df1.reindex(columns=column_names)
-
+    print(tweets_df1)
     # Sentiment Analysis
 
     SENTIMENT_CSV = "assets/word_sentiment.csv"
