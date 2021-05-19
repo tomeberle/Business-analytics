@@ -12,16 +12,14 @@ def get_CEOs_twitter_posts(account_df1):
 
     # Creating list to append tweet data to
     tweets_list1 = []
-    # ACCOUNT_CSV = "C:/Users/patri/Desktop/HEC/5th Bimester/Business Analytics/twitter_accounts.csv"
 
     # Using TwitterSearchScraper to scrape data and append tweets to list
-    # account_df1 = pd.read_csv(ACCOUNT_CSV)
     account_df1 = account_df1.fillna('')
     account_list = account_df1["twitter_account_ceo"].values.tolist()
     account_list = list(filter(None, account_list))
 
     for account in account_list:
-        for tweet in sntwitter.TwitterSearchScraper('from:' + account + ' since:2021-05-02').get_items():
+        for tweet in sntwitter.TwitterSearchScraper('from:' + account + ' since:2021-04-05 until:2021-05-18').get_items():
             tweets_list1.append(
                 [tweet.date, tweet.id, tweet.content, tweet.username])
 
