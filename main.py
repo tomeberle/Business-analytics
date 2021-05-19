@@ -1,6 +1,7 @@
 import pandas as pd
 
 from Stock import get_stock_data_2min_56days
+from Twitter_CEO import get_CEOs_twitter_posts
 
 
 # Load list of companies
@@ -11,6 +12,7 @@ symbols = companies["symbol"].tolist()
 get_stock_data_2min_56days(symbols)
 
 # Fetch Twitter Company Posts
+get_CEOs_twitter_posts(companies)
 # Add Stock Price Movement in new column
 
 # Fetch Twitter CEO Posts
