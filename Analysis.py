@@ -55,7 +55,7 @@ def find_stock_movement(ticker, date, time_before_tweet, time_after_tweet, sensi
     """
     Functions that finds the stock price movement for a given ticker and time.
     Input: ticker (e.g. "MSFT"), date (format "2021-03-26 14:20:00-04:00"), time_before_tweet, time_after_tweet (in minutes)
-    Output: returns +1, -1, or 0 (corresponding to upward move, downward move, no siginificant move)
+    Output: returns +1, -1, 0 or None (corresponding to upward move, downward move, no siginificant move, no stock data)
     """
     # Reading historical stock data
     df = pd.read_csv("output/historical.csv", parse_dates=["Date"])
@@ -109,5 +109,5 @@ ticker = "MSFT"
 date = "2021-03-26 14:20:00-04:00"
 
 
-a = find_stock_movement(ticker, date, interval_minutes=20, sensitivity=0.01)
-print('a :', a)
+# a = find_stock_movement(ticker, date, interval_minutes=20, sensitivity=0.01)
+# print('a :', a)
