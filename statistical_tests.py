@@ -1,13 +1,34 @@
 import pandas as pd
 from scipy.stats import chi2_contingency
 
-def contingency_table(tweets_df1):
+def contingency_table_company(tweets_df1):
     import matplotlib.pyplot as plt
     import seaborn as sns
     # Contingency Table
     tweets_df1 = pd.read_csv("output/twitter_sentiment_companies.csv")
     tweets_df1.dropna(subset=["Movement"], inplace=True)
 
+    tweets_df1.loc[(tweets_df1.Sentiment == 1),'Sentiment']= 0
+    tweets_df1.loc[(tweets_df1.Sentiment == -1),'Sentiment']= 0
+    tweets_df1.loc[(tweets_df1.Sentiment > 0),'Sentiment']= 1
+    tweets_df1.loc[(tweets_df1.Sentiment < 0),'Sentiment']= -1
+    tweets_df1['Sentiment'] = tweets_df1['Sentiment'].replace([0, 1, -1],['neutral','positive','negative'])
+
+    tweets_df1['Movement'] = tweets_df1['Movement'].astype(int)
+    tweets_df1['Movement'] = tweets_df1['Movement'].replace([0, 1, -1],['no_move','up','down'])
+    contingency = pd.crosstab(tweets_df1['Sentiment'], tweets_df1['Movement'])
+    plt.figure(figsize=(12,8))
+    sns.heatmap(contingency, annot=True, cmap="YlGnBu")
+
+def contingency_table_ceo(tweets_df1):
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+    # Contingency Table
+    tweets_df1 = pd.read_csv("output/twitter_sentiment_ceos.csv")
+    tweets_df1.dropna(subset=["Movement"], inplace=True)
+
+    tweets_df1.loc[(tweets_df1.Sentiment == 1),'Sentiment']= 0
+    tweets_df1.loc[(tweets_df1.Sentiment == -1),'Sentiment']= 0
     tweets_df1.loc[(tweets_df1.Sentiment > 0),'Sentiment']= 1
     tweets_df1.loc[(tweets_df1.Sentiment < 0),'Sentiment']= -1
     tweets_df1['Sentiment'] = tweets_df1['Sentiment'].replace([0, 1, -1],['neutral','positive','negative'])
@@ -22,9 +43,11 @@ def run_chisquared_company(tweets_df1):
     tweets_df1 = pd.read_csv("output/twitter_sentiment_companies.csv")
     tweets_df1.dropna(subset=["Movement"], inplace=True)
 
+    tweets_df1.loc[(tweets_df1.Sentiment == 1),'Sentiment']= 0
+    tweets_df1.loc[(tweets_df1.Sentiment == -1),'Sentiment']= 0
     tweets_df1.loc[(tweets_df1.Sentiment > 0),'Sentiment']= 1
     tweets_df1.loc[(tweets_df1.Sentiment < 0),'Sentiment']= -1
-    tweets_df1['Sentiment'] = tweets_df1['Sentiment'].replace([0, 1, -1],['neutral','positive','negative'])
+    tweets_df1['Sentiment'] = tweets_df1['Sentiment'].replace([0, 1, -1],['neutral','positive','negative'])   
 
     tweets_df1['Movement'] = tweets_df1['Movement'].astype(int)
     tweets_df1['Movement'] = tweets_df1['Movement'].replace([0, 1, -1],['no_move','up','down'])
@@ -61,10 +84,12 @@ def run_chisquared_ceo(tweets_df1):
     tweets_df1 = pd.read_csv("output/twitter_sentiment_ceos.csv")
     tweets_df1.dropna(subset=["Movement"], inplace=True)
     
+    tweets_df1.loc[(tweets_df1.Sentiment == 1),'Sentiment']= 0
+    tweets_df1.loc[(tweets_df1.Sentiment == -1),'Sentiment']= 0
     tweets_df1.loc[(tweets_df1.Sentiment > 0),'Sentiment']= 1
     tweets_df1.loc[(tweets_df1.Sentiment < 0),'Sentiment']= -1
-    tweets_df1['Sentiment'] = tweets_df1['Sentiment'].replace([0, 1, -1],['neutral','positive','negative'])
-    
+    tweets_df1['Sentiment'] = tweets_df1['Sentiment'].replace([0, 1, -1],['neutral','positive','negative'])   
+
     tweets_df1['Movement'] = tweets_df1['Movement'].astype(int)
     tweets_df1['Movement'] = tweets_df1['Movement'].replace([0, 1, -1],['no_move','up','down'])
 
@@ -93,3 +118,5 @@ def run_gtest_ceo(tweets_df1):
     # G-Test or log-likelihood ratio
     g, p, dof, expcted = chi2_contingency(contingency, lambda_="log-likelihood")
     return g, p
+
+    
