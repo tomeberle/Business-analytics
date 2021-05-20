@@ -43,11 +43,11 @@ def find_companies(content):
             # Looking company name
             match_name = title.find(company[1])
             if match_name != -1:
-                print(row[0] + '- Found company in title: ' + str(company))
+                print(row[0] + '- Found company: ' + str(company))
             # Looking ticker
             match_symbol = title.find('$' + company[0])
             if match_symbol != -1:
-                print(row[0] + '- Found ticker in title: ' + str(company))
+                print(row[0] + '- Found ticker: ' + str(company))
 
     # TODO: Better matching accuracy
     # TODO: create new column with tickers
@@ -100,7 +100,3 @@ def find_stock_movement(ticker, date, time_before_tweet, time_after_tweet, sensi
     else:
         # Not significant
         return 0
-
-
-# a = find_stock_movement(ticker, date, interval_minutes=20, sensitivity=0.01)
-# print('a :', a)
