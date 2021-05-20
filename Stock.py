@@ -45,7 +45,6 @@ def get_stock_data_2min_56days(ticker_list):
     print(dates)
 
     i = 0
-    # dataframe = pd.DataFrame([])
     dataframe = []
     for date in dates:
         print(date)

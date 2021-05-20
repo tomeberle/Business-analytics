@@ -31,13 +31,12 @@ def scrap_reddit(pagesToDo, thread):
     # Loop throuugh pages
     while (pageNb <= pagesToDo):
         # Loop through posts
-        print('Page n°: ' + str(pageNb))
+        print('Scrapping Reddit page n°: ' + str(pageNb))
         for post in soup.find_all('div', attrs=attrs):
             # Identifying html items to scrape
             title = post.find('p', class_="title").text
             author = post.find('a', class_='author').text
             date = post.find('time')['datetime'][:10]
-            # TODO: Add 2h (now UTC, move to GMT + 2)
             _time = post.find('time')['datetime'][11:19]
             comments = post.find('a', class_='comments').text.split()[0]
             if comments == "comment":
@@ -45,7 +44,6 @@ def scrap_reddit(pagesToDo, thread):
             likes = post.find("div", attrs={"class": "score likes"}).text
             if likes == "•":
                 likes = "None"
-
             # Scrapping each post's content
             url = post.find('a', attrs={'data-event-action': "title"})['href']
             page = requests.get(
@@ -85,7 +83,7 @@ def scrap_reddit(pagesToDo, thread):
 
 
 # Fonction parameters
-pagesToDo = 1
+pagesToDo = 9
 thread = "wallstreetbets"
 content = scrap_reddit(pagesToDo, thread)
-content = find_companies(content)
+#content = find_companies(content)

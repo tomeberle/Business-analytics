@@ -19,11 +19,13 @@ def load_csv(filename, subfolder):
 
 
 def find_companies(content):
+    #  ISSUE: Not enough accuracy when searching for companies in Reddit posts
     """ Identifies stock market companies in scrapped content. 
     Input: [[counter, date, _time, title, author, likes, comments], [...]]
     Output: identical list with new 'company' column. 
     Notes: removes the 1 line of the list (header)
     """
+
     nasdaq = load_csv(filename='nasdaq-listed_clean', subfolder='assets')
     test_string = "This text is about a company called credit suisse company and , of couse, is it working"
 
