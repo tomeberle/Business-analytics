@@ -22,7 +22,7 @@ def train_nb_classifier(df):
     classifier.show_most_informative_features(20)
     print("Starting accuracy test...")
     b = nltk.classify.accuracy(classifier, training_set)
-    print(b)
+    print("The accuracy of the training:", b)
     acc = nltk.classify.accuracy(classifier, test_set)
     print("The accuracy of the model:", acc)
 
