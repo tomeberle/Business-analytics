@@ -2,14 +2,14 @@ import random
 import nltk
 import pandas as pd
 from datetime import datetime, timedelta
+import json
 
 
 def train_nb_classifier(df):
     """ This will train the classifier using the word sentiment feature set"""
     featureset = gen_featureset(df)
 
-    # shuffle the corpus to overcome the issue of alphebetic ordering of the word
-    # so that the training set and test set share the same distribution
+    # Shuffle the corpus to avoid chronology
     random.shuffle(featureset)
 
     num_ts = int(len(featureset)*0.8)
@@ -100,5 +100,8 @@ def feature_stockprice_volatility(ticker, date, time_before, df):
 # df = pd.read_csv("output/historical.csv", parse_dates=["Date"])
 # volatility = feature_stockprice_volatility(ticker, date, time_before=20, df=df)
 
-df = pd.read_csv("output/twitter_sentiment_ceos.csv")
-nb_classifier = train_nb_classifier(df)
+df_ceos = pd.read_csv("output/twitter_sentiment_ceos.csv")
+df_companies = pd.read_csv("output/twitter_sentiment_companies.csv")
+
+nb_classifier = train_nb_classifier(df_ceos)
+nb_classifier = train_nb_classifier(df_companies)
