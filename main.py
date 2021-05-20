@@ -4,12 +4,12 @@ from Stock import get_stock_data_2min_56days
 from Twitter_CEO import get_CEOs_twitter_posts
 from Twitter_Company import get_company_twitter_posts
 from Analysis import find_stock_movement
-from statistical_tests import contingency_table, run_chisquared_company, run_gtest_company, run_chisquared_ceo, run_gtest_ceo
+from statistical_tests import contingency_table_company, contingency_table_ceo, run_chisquared_company, run_chisquared_ceo
 
 # Parameters
 TIME_BEFORE_TWEET = 2  # in minutes
-TIME_AFTER_TWEET = 6  # in minutes
-SENSITIVITY = 0.0001  # threshold for significant price movement
+TIME_AFTER_TWEET = 2  # in minutes
+SENSITIVITY = 0.0004  # threshold for significant price movement
 
 # Load list of companies
 companies = pd.read_csv("assets/twitter_accounts.csv")
@@ -40,8 +40,21 @@ print(company_tweets)
 sentiment_company = pd.read_csv("output/twitter_sentiment_companies.csv")
 sentiment_ceo = pd.read_csv("output/twitter_sentiment_ceos.csv")
 
-contingency_table(sentiment_company)
+contingency_table_company(sentiment_company)
+contingency_table_ceo(sentiment_ceo)
 run_chisquared_company(sentiment_company)
-run_gtest_company(sentiment_company)
 run_chisquared_ceo(sentiment_ceo)
-run_gtest_ceo(sentiment_ceo)
+
+
+#calculate Cramer's V 
+import numpy as np
+
+data = np.array([[21,57,24], [270,500,259], [280,740,320]])
+
+chi2 = 11.11
+n = np.sum(data)
+minDim = min(data.shape)-1
+
+V = np.sqrt((chi2/n) / minDim)
+
+print(V)
