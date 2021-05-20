@@ -8,7 +8,7 @@ from statistical_tests import contingency_table_company, contingency_table_ceo, 
 
 # Parameters
 TIME_BEFORE_TWEET = 2  # in minutes
-TIME_AFTER_TWEET = 2  # in minutes
+TIME_AFTER_TWEET = 4  # in minutes
 SENSITIVITY = 0.0004  # threshold for significant price movement
 
 # Load list of companies
@@ -48,8 +48,8 @@ run_chisquared_ceo(sentiment_ceo)
 
 # Cramer's V companies
 import numpy as np
-data = np.array([[21,57,24], [270,500,259], [280,740,320]])
-chi2 = 11.11
+data = np.array([[55,75,67], [238,237,227], [468,638,461]])
+chi2 = 11.41
 n = np.sum(data)
 minDim = min(data.shape)-1
 V = np.sqrt((chi2/n) / minDim)
@@ -57,8 +57,8 @@ print(V)
 
 # Cramer's V CEOs
 import numpy as np
-data = np.array([[21,57,24], [270,500,259], [280,740,320]])
-chi2 = 11.11
+data = np.array([[5,2,6], [9,6,19], [77,96,98]])
+chi2 = 7.89
 n = np.sum(data)
 minDim = min(data.shape)-1
 V = np.sqrt((chi2/n) / minDim)

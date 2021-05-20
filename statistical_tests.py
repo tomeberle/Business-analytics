@@ -8,8 +8,6 @@ def contingency_table_company(tweets_df1):
     tweets_df1 = pd.read_csv("output/twitter_sentiment_companies.csv")
     tweets_df1.dropna(subset=["Movement"], inplace=True)
 
-    tweets_df1.loc[(tweets_df1.Sentiment == 1),'Sentiment']= 0
-    tweets_df1.loc[(tweets_df1.Sentiment == -1),'Sentiment']= 0
     tweets_df1.loc[(tweets_df1.Sentiment > 0),'Sentiment']= 1
     tweets_df1.loc[(tweets_df1.Sentiment < 0),'Sentiment']= -1
     tweets_df1['Sentiment'] = tweets_df1['Sentiment'].replace([0, 1, -1],['neutral','positive','negative'])
@@ -18,7 +16,7 @@ def contingency_table_company(tweets_df1):
     tweets_df1['Movement'] = tweets_df1['Movement'].replace([0, 1, -1],['no_move','up','down'])
     contingency = pd.crosstab(tweets_df1['Sentiment'], tweets_df1['Movement'])
     plt.figure(figsize=(12,8))
-    sns.heatmap(contingency, annot=True, cmap="YlGnBu")
+    sns.heatmap(contingency, annot=True, cmap="YlGnBu", fmt='d')
 
 def contingency_table_ceo(tweets_df1):
     import matplotlib.pyplot as plt
@@ -27,8 +25,6 @@ def contingency_table_ceo(tweets_df1):
     tweets_df1 = pd.read_csv("output/twitter_sentiment_ceos.csv")
     tweets_df1.dropna(subset=["Movement"], inplace=True)
 
-    tweets_df1.loc[(tweets_df1.Sentiment == 1),'Sentiment']= 0
-    tweets_df1.loc[(tweets_df1.Sentiment == -1),'Sentiment']= 0
     tweets_df1.loc[(tweets_df1.Sentiment > 0),'Sentiment']= 1
     tweets_df1.loc[(tweets_df1.Sentiment < 0),'Sentiment']= -1
     tweets_df1['Sentiment'] = tweets_df1['Sentiment'].replace([0, 1, -1],['neutral','positive','negative'])
@@ -37,14 +33,12 @@ def contingency_table_ceo(tweets_df1):
     tweets_df1['Movement'] = tweets_df1['Movement'].replace([0, 1, -1],['no_move','up','down'])
     contingency = pd.crosstab(tweets_df1['Sentiment'], tweets_df1['Movement'])
     plt.figure(figsize=(12,8))
-    sns.heatmap(contingency, annot=True, cmap="YlGnBu")
+    sns.heatmap(contingency, annot=True, cmap="YlGnBu", fmt='d')
 
 def run_chisquared_company(tweets_df1):
     tweets_df1 = pd.read_csv("output/twitter_sentiment_companies.csv")
     tweets_df1.dropna(subset=["Movement"], inplace=True)
 
-    tweets_df1.loc[(tweets_df1.Sentiment == 1),'Sentiment']= 0
-    tweets_df1.loc[(tweets_df1.Sentiment == -1),'Sentiment']= 0
     tweets_df1.loc[(tweets_df1.Sentiment > 0),'Sentiment']= 1
     tweets_df1.loc[(tweets_df1.Sentiment < 0),'Sentiment']= -1
     tweets_df1['Sentiment'] = tweets_df1['Sentiment'].replace([0, 1, -1],['neutral','positive','negative'])   
@@ -84,8 +78,6 @@ def run_chisquared_ceo(tweets_df1):
     tweets_df1 = pd.read_csv("output/twitter_sentiment_ceos.csv")
     tweets_df1.dropna(subset=["Movement"], inplace=True)
     
-    tweets_df1.loc[(tweets_df1.Sentiment == 1),'Sentiment']= 0
-    tweets_df1.loc[(tweets_df1.Sentiment == -1),'Sentiment']= 0
     tweets_df1.loc[(tweets_df1.Sentiment > 0),'Sentiment']= 1
     tweets_df1.loc[(tweets_df1.Sentiment < 0),'Sentiment']= -1
     tweets_df1['Sentiment'] = tweets_df1['Sentiment'].replace([0, 1, -1],['neutral','positive','negative'])   
