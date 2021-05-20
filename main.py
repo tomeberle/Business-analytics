@@ -46,15 +46,20 @@ run_chisquared_company(sentiment_company)
 run_chisquared_ceo(sentiment_ceo)
 
 
-#calculate Cramer's V 
+# Cramer's V companies
 import numpy as np
-
 data = np.array([[21,57,24], [270,500,259], [280,740,320]])
-
 chi2 = 11.11
 n = np.sum(data)
 minDim = min(data.shape)-1
-
 V = np.sqrt((chi2/n) / minDim)
+print(V)
 
+# Cramer's V CEOs
+import numpy as np
+data = np.array([[21,57,24], [270,500,259], [280,740,320]])
+chi2 = 11.11
+n = np.sum(data)
+minDim = min(data.shape)-1
+V = np.sqrt((chi2/n) / minDim)
 print(V)
